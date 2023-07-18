@@ -1,17 +1,21 @@
 import cv2
 import os
+from dotenv import load_dotenv
 from time import sleep
 from msrest.authentication import ApiKeyCredentials
 from azure.cognitiveservices.vision.customvision.prediction import CustomVisionPredictionClient
 
+load_dotenv()
+
 predictionKey = os.environ.get("predictionKey")
-customvisionendpoint = os.environ.get("customvisionendpoint")
+customvisionpredictionendpoint = os.environ.get("customvisionpredictionendpoint")
 project_id = os.environ.get("project_id")
 itterationname = os.environ.get("itterationname")
 
+
 # Custom vision credentials
 apikeycredentials = ApiKeyCredentials(in_headers={"Prediction-key": predictionKey})
-cvpredictor= CustomVisionPredictionClient(customvisionendpoint, apikeycredentials)
+cvpredictor= CustomVisionPredictionClient(customvisionpredictionendpoint, apikeycredentials)
 
 camera = cv2.VideoCapture(0)
 if not camera.isOpened():
@@ -29,7 +33,7 @@ try:
             results = cvpredictor.detect_image(project_id, itterationname, picture_captured)
 
         for prediction in results.predictions:
-           print("prediciton probability: ", prediction.probability)
+           print("prediciton probability: ", prediction)
            sleep(3)
            
 

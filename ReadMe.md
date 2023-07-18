@@ -1,2 +1,1 @@
-- pip install opencv-python
-- pip install azure.congitiveservices.vision.customvision
+- pip install -r requirements.txt
