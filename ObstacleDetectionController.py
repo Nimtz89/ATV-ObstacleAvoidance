@@ -28,5 +28,10 @@ try:
         with open("picture_captured.png", mode="rb") as picture_captured:
             results = cvpredictor.detect_image(project_id, itterationname, picture_captured)
 
+        for prediction in results.predictions:
+           print("prediciton probability: ", prediction.probability)
+           sleep(3)
+           
+
 except KeyboardInterrupt:
     camera.release()
